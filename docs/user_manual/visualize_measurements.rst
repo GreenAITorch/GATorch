@@ -14,7 +14,7 @@ you can use the ``visualize_data()`` function.
 
     ga_measure.visualize_data()  
 
-.. image:: images/plotenergy.png
+.. image:: images/total.png
    :width: 600
 
 You can use the function to specify if you want to see the energy consumption of the model
