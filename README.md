@@ -1,10 +1,21 @@
 # GAtorch
 
-Green AI torch tries to create awereness over energy consumption within the Pytorch ML framework. Its goal is to measure energy consumption throughout the complete process of AI engineers and can give overviews and indications for performance gains with respect to energy consumption. 
+Green AI torch tries to create awareness over energy consumption within the Pytorch ML framework. Its goal is to measure energy consumption throughout the complete process of AI engineers and can give overviews and indications for performance gains with respect to energy consumption.
 
-Currently it supports energy measurement of the training passes per layer. 
+Currently it supports energy measurement of the training passes per layer.
 
-# Installation requirements
+You can find the full API documentation [here](https://gatorch.readthedocs.io/en/latest/).
+
+# Installation
+
+You can install GATorch using pip.
+To install GATorch, at the command line, run::
+
+```bash
+pip install GATorch
+```
+
+# Source Installation
 - cuda >=11.7
 - cuDNN >=8
 
@@ -34,33 +45,38 @@ print(ga_measure.get_mean_measurements())
 
 or run the example scripts in the `examples` directory.
 
-## Compatability
+## Compatibility
 
 Some older hardware might not support energy consumption measurements:
 - NVML requires Tesla Architecture NVIDIA GPUs or newer to work.
-- RAPLs DRAM measurements are only available for XENON CPUs. 
+- RAPLs DRAM measurements are only available for XENON CPUs.
 
-In case you get compatibility errors due to older hardware you can disable the failing measurement application, use the `disable_measurements` parameter in the `attach_model` function. This parameter accepts a list of disabled measurements out of `['cpu', 'ram', 'gpu']`, default is `[]`. You need to use at least one measurement that is not disabled. The program will indicate that the disabled devices are unavailable. 
+In case you get compatibility errors due to older hardware you can disable the failing measurement application, use the `disable_measurements` parameter in the `attach_model` function. This parameter accepts a list of disabled measurements out of `['cpu', 'ram', 'gpu']`, default is `[]`. You need to use at least one measurement that is not disabled. The program will indicate that the disabled devices are unavailable.
 
 ## Permissions
 <!-- In case you get a permission error, run:
 ```bash
 sudo chmod -R a+r /sys/class/powercap/intel-rapl
-``` 
+```
 DONT DO THIS, THIS IS A SECURITY VULNERABILITY
 -->
-Due to [Platypus attack](https://platypusattack.com) Intel RAPL requires root permission for energy readings. In order to run this program with the correct permissions, do NOT make Intel RAPL readable for any user as this introduces vulernability. Instead use Python with sudo instead:
+Due to [Platypus attack](https://platypusattack.com) Intel RAPL requires root permission for energy readings. In order to run this program with the correct permissions, do NOT make Intel RAPL readable for any user as this introduces vulnerability. Instead use Python with sudo instead:
+
 ```bash
 sudo ./.venv/bin/python <script_name>.py
 ```
 
 ## Tensorboard
-This tool can automatically generate energy consumption reports and display these in Tensorboard. To use Tensorboard run `tensorboard --logdir=runs` and open the browser to view the graphs. This tool further allows for custom graph generation and tensorboard integration, but is not complete and needs to be extended.  
+
+This tool can automatically generate energy consumption reports and display these in Tensorboard. To use Tensorboard run `tensorboard --logdir=runs` and open the browser to view the graphs. This tool further allows for custom graph generation and tensorboard integration, but is not complete and needs to be extended. 
 
 # Roadmap
 
-The current architecture of this tool uses the integrated hooks of the PyTorch library, which restricts the current implementation towards the final goal of complete coverage including data loading, pre-processing, saving and loading a model etc. To give a more thorough analysis of the imapct of energy consumption in ML development, this still needs to be developed.
+The current architecture of this tool uses the integrated hooks of the PyTorch library, which restricts the current implementation towards the final goal of complete coverage including data loading, pre-processing, saving and loading a model etc. To give a more thorough analysis of the impact of energy consumption in ML development, this still needs to be developed.
 
-This tool differes from other tools by measuring in-depth layers and system componenents and could be expanded to provide energy consumption data that can lead to recommendations for eliminating certain layers due to high energy consumption compared to accuracy gain. 
+This tool differs from other tools by measuring in-depth layers and system components and could be expanded to provide energy consumption data that can lead to recommendations for eliminating certain layers due to high energy consumption compared to accuracy gain.
 
-PyJoules measures the energy consumption per individual hardware components and this data could be sereperated in order to provide a relative component view. Another improvement could be to measure the system component utilisation over time, which can be an indicator of wasted energy. 
+PyJoules measures the energy consumption per individual hardware components and this data could be separated in order to provide a relative component view. Another improvement could be to measure the system component utilization over time, which can be an indicator of wasted energy.
+
+
+

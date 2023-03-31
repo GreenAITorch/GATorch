@@ -17,6 +17,21 @@ class GA:
         self.emission_tracker = None
     
     def attach_model(self, model, loss=None, named_layer=True, profiler='pyjoules', disable_measurements=[]):
+        '''
+        Attach a model to the GA profiler. You can add also a loss function. 
+        The profiler will then track the energy consumption of the attached model.
+
+        :param model: PyTorch model you want to track.
+        :param loss: Loss function to be passed for tracking the consumption of the loss computation.
+        :param named_layers: Set to False to not track individual named layers.
+        :param profiler: Typed of profiler used to track the energy consumption. Currently only 'pyjoules' is implemented.
+        :param disable_measurements: Set which hardware components you are not intrested in tracking between cpu, ram and gpu.
+        :type model: torch.nn.module
+        :type loss: torch.nn.module
+        :type named_layers: boolean
+        :type profiler: string
+        :type disable_measurements: list
+        '''
         if self.model is not None:
             raise RuntimeError('Already a model attached, use detach_model() before attaching the profiler to a new one.')
 
@@ -64,6 +79,9 @@ class GA:
             raise RuntimeError('No model attached to profiler.')
         
     def detach_model(self):
+        '''
+        Detach the current model from the GA profiler.
+        '''
         self._check_model_attached()
 
         for handle in self.hook_handles:
@@ -73,6 +91,12 @@ class GA:
         self.model = None
 
     def get_full_measurements(self):
+        '''
+        Get the full measurements collected by the profiler.
+
+        :returns: The energy consumptions for each pass and model component.
+        :rtype: dict
+        '''
         self._check_model_attached()
 
         measurements = {}
@@ -84,6 +108,12 @@ class GA:
         return measurements
 
     def get_mean_measurements(self):
+        '''
+        Get the mean of the measurements collected by the profiler.
+
+        :returns: The mean energy consumption for each model component.
+        :rtype: dict
+        '''
         self._check_model_attached()
 
         measurements = self.get_full_measurements()
@@ -93,6 +123,12 @@ class GA:
         return measurements
     
     def get_sum_measurements(self):
+        '''
+        Get the sum of the measurements collected by the profiler.
+
+        :returns: The full energy consumption for each model component.
+        :rtype: dict
+        '''
         self._check_model_attached()
 
         measurements = self.get_full_measurements()
@@ -109,6 +145,12 @@ class GA:
         return self.hook_register['loss'][0].get_losses()
     
     def to_pandas(self):
+        '''
+        Convert the energy measurements into a pandas.DataFrame object.
+
+        :returns: The dataframe of the energy consumption for each model component.
+        :rtype: pandas.DataFrame
+        '''
         measurements = self.get_full_measurements()
         pd_dict = {}
         for column in measurements.keys():
@@ -118,6 +160,12 @@ class GA:
         return pd.DataFrame.from_dict(pd_dict, orient='index').T
 
     def to_csv(self, filename):
+        '''
+        Save the energy measurements into a csv file.
+
+        :param filename: Name of the csv file.
+        :type filename: string
+        '''
         if filename[-4:]!='.csv':
             filename = filename + '.csv'
 
@@ -125,6 +173,28 @@ class GA:
         df.to_csv(filename)
 
     def visualize_data(self, layers='all', complete_model=True, loss=False, phase='total', kind='line', smoothing=0.3, figsize=None, filename=None):
+        '''
+        Generate a matplotlib plot for the energy measurements.
+
+        :param layers: Pass in a list which named layers you want to display. Pass 'all' if you want to see all of them.
+        :param complete_model: Set to False if you don't want to see the data for the complete model.
+        :param loss: Set to True to display also the loss function data.
+        :param phase: Select which phase to display between 'total', 'forward' or 'backward'.
+        :param kind: Select which type of plot to generate between 'line', 'violin' or 'box'.
+        :param smoothing: Only used for lineplots. Value between 0 and 1 used to add smoothing to the displayed data.
+        :param figsize: Size of the figure generated.
+        :param filename: Pass a filename if you want to save the image created.
+        :type layers: list or string
+        :type complete_model: boolean
+        :type loss: boolean
+        :type phase: string
+        :type kind: string
+        :type smoothing: float
+        :type figsize: Tuple
+        :type filename: string
+        :returns: The matplotlib axes containing the plot.
+        :rtype: Axes
+        '''    
         df = self.to_pandas()
         df = df.dropna(axis=1)
 
@@ -226,6 +296,12 @@ class GA:
         return ax
         
     def start_tracker_emissions(self, save_to_file=False):
+        '''
+        Start a tracker for carbon emission. Implemented using codecarbon.
+
+        :param save_to_file: Save the tracking results in a file called 'emissions'.
+        :type save_to_file: boolean
+        '''
         if self.emission_tracker is not None:
             print(self.emission_tracker)
             raise RuntimeError('Emission tracker already running.')
@@ -234,6 +310,12 @@ class GA:
         self.emission_tracker.start()
     
     def stop_tracker_emissions(self):
+        '''
+        Stop the tracker for carbon emission. 
+
+        :returns: The total emissions produced by the model since the tracker was started.
+        :rtype: float
+        '''
         if self.emission_tracker is None:
             raise RuntimeError('Emission tracker is not running. Use start_tracker_emissions().')
         
@@ -242,6 +324,18 @@ class GA:
         return emissions
     
     def set_tensorboard_stats(self, writer=None, experiment=0, named_layer=True, sample_size=500):
+        '''
+        Sets the tensorboard data that can be viewed through the tensorboard dashboard. 
+
+        :param writer: Optionally pass an already existing tensorboard writer.
+        :param experiment: Set an identifier for the displayed data.
+        :param named_layer: Indicate if the named layers should also be displayed in tensorboard.
+        :param sample_size: Size of the sample size used to define a loss step. Used to compute the grap for energy per loss step.
+        :type writer: torch.utils.tensorboard.SummaryWriter
+        :type experiment: int
+        :type named_layer: boolean
+        :type sample_size: int 
+        '''
         if writer is None:
             writer = SummaryWriter(f'runs/experiment_{experiment}')
         
@@ -308,6 +402,12 @@ class GA:
         writer.close()
         
     def reset(self, emission_tracker=True):
+        '''
+        Reset all the measurements. 
+
+        :param emission_tracker: Indicates if the emissions tracker needs to be reset as well.
+        :type emission_tracker: boolean
+        '''
         self._check_model_attached()
 
         for _, (forward_hook, backward_hook) in self.hook_register.items():

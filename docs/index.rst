@@ -21,9 +21,8 @@ This guide provides the user with the explenention of GATorch concepts and funct
    
    user_manual/installation
    user_manual/getting_started
-   user_manual/analysing_measurements
+   user_manual/visualize_measurements
    user_manual/tensorboard
-   user_manual/codecarbon
    
 .. toctree::
    :caption: API Reference:
