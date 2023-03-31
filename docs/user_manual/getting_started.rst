@@ -13,6 +13,17 @@ forward and backward pass.
     ga_measure = GA()
     ga_measure.attach_model(model)
 
+.. note::
+
+    Due to `Platypus attack <https://platypusattack.com>`__ Intel RAPL requires 
+    root permission for energy readings. In order to run this program with the correct
+    permissions, do NOT make Intel RAPL readable for any user as this introduces 
+    vulernability. Instead use Python with sudo instead:
+
+    .. code-block:: bash
+        
+        ~$ sudo ./.venv/bin/python <script_name>.py
+
 Once the model is attached to the ``GA`` object you can simply follow you normal training loop routine. GATorch will take care to create the measurements
 in the background. You can then retrieve the measurements at any point. 
 
