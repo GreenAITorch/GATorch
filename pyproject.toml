@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "GATorch"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Rover van der Noort", email="s.r.vandernoort@student.tudelft.nl" },
   { name="Martijn Smits", email="m.j.p.smits@student.tudelft.nl" },
@@ -19,7 +19,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-keywords = ["PyTorch", "ai", "green software"]
+keywords = ["PyTorch", "Green AI", "sustainable software software"]
 dependencies = [
     "torch==2.0.0",
     "torchvision",
