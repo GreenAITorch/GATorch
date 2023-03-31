@@ -94,3 +94,19 @@ To reset the current energy measurements use ``reset()``.
 
     ga_measure.reset()
 
+Loss vs Energy Consumption  
+--------------------------
+
+An important feature of ``GATorch`` is its ability to compute and display how much energy is needed to improve the loss of a model 
+at each step of the training loop. This way it is possible to see how improving the loss becomes more expensive as the loss becomes 
+smaller, giving machine learning scientist and enginners a new criterion to judge, for example, when to stop training. We show this data
+using `tensorboard <https://pytorch.org/docs/stable/tensorboard.html>`__.
+
+.. code:: python3
+
+    ga_measure.set_tensorboard_stats()  
+
+.. image:: images/energyincrease.png
+   :width: 600
+
+For more details about ``tensorboard`` integration see this :doc:`section <tensorboard>`.
