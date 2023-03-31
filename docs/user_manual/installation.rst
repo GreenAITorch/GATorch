@@ -9,7 +9,6 @@ To install GATorch, at the command line, run::
 
     ~$ pip install gatorch
 
-
 Verify Installation
 -------------------
 
