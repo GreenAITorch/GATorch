@@ -1,0 +1,12 @@
+torch>=2.0.0<2.1.0
+torchvision
+torchaudio
+pyRAPL
+pymongo
+pandas
+pyJoules
+pyJoules[nvidia]
+matplotlib
+codecarbon
+scipy
+tensorboard

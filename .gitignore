@@ -1,0 +1,10 @@
+**/__pycache__
+.idea
+**/.venv
+/.vscode
+**/data
+/results
+**/runs
+*.pth
+*.csv
+*.png
