@@ -10,3 +10,5 @@ matplotlib
 codecarbon
 scipy
 tensorboard
+build
+twine
