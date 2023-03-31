@@ -9,7 +9,7 @@ You can find the full API documentation [here](https://gatorch.readthedocs.io/en
 # Installation
 
 You can install GATorch using pip.
-To install GATorch, at the command line, run::
+To install GATorch, at the command line, run:
 
 ```bash
 pip install GATorch
