@@ -3,11 +3,11 @@ Getting started with GATorch
 
 To use GATorch simply create a ``GA`` object. You can then track the measurements of a pytorch model by simply using ``attach_model()``. With 
 the latter function you can pass a model to your ``GA`` object, which will then measure the energy consumption of the model during each 
-forward and backward pass. 
+forward and backward pass.
 
 .. code:: python3
 
-    from GA import GA
+    from GATorch import GA
 
     # Create the profiler object and attach a model to it
     ga_measure = GA()
@@ -55,9 +55,9 @@ You can also convert the readings into a ``pandas.DataFrame``.
 | NeuralNetwork_forward     | NeuralNetwork_backward     | 
 +===========================+============================+
 | 0.031860                  | 0.042359                   |
-+------------------+------------------+------------------+
++---------------- ----------+----------------------------+
 | 0.042236                  | 0.034667                   | 
-+------------------+------------------+------------------+
++---------------------------+----------------------------+
 
 To now visualize the results use :mod:`visualize_data()`.
 
@@ -67,3 +67,30 @@ To now visualize the results use :mod:`visualize_data()`.
     
 .. image:: images/total.png
    :width: 600
+
+Tracking a model 
+----------------
+
+To start tracking a model you need to attach it to a ``GA`` object. By default the ``GA`` profiler will also track the energy consumption 
+that each named layer of the model generates. If you are not intrested in this data you can specify it when attaching the model to the profiler.
+
+.. code:: python3
+
+    ga_measure = GA()
+
+    ga_measure.attach_model(model_1, named_layer=False)
+
+If you want to track the energy consumption of a new model you must first detach the previous one. Finally you can also 
+attach a loss function to track the forward and backward passes of the torch loss criterion. 
+
+.. code:: python3
+
+    ga_measure.detach_model()
+    ga_measure.attach_model(model_2, loss=loss_fn)
+
+To reset the current energy measurements use ``reset()``.
+
+.. code:: python3
+
+    ga_measure.reset()
+
