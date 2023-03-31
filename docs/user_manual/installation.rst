@@ -7,6 +7,8 @@ Installing an official release
 You can install GATorch using pip. 
 To install GATorch, at the command line, run::
 
+.. code-block:: bash
+    
     ~$ pip install gatorch
 
 Verify Installation

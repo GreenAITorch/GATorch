@@ -63,7 +63,7 @@ To now visualize the results use :mod:`visualize_data()`.
 
 .. code:: python3
 
-    ga_measure.visualize_data(filename='image.png')
+    ga_measure.visualize_data()
     
 .. image:: images/total.png
    :width: 600
