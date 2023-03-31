@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "GATorch"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Rover van der Noort", email="s.r.vandernoort@student.tudelft.nl" },
   { name="Martijn Smits", email="m.j.p.smits@student.tudelft.nl" },
@@ -18,6 +18,21 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+]
+keywords = ["PyTorch", "Green AI", "sustainable software software"]
+dependencies = [
+    "torch==2.0.0",
+    "torchvision",
+    "torchaudio",
+    "pyRAPL",
+    "pymongo",
+    "pandas",
+    "pyJoules",
+    "pyJoules[nvidia]",
+    "matplotlib",
+    "codecarbon",
+    "scipy",
+    "tensorboard"
 ]
 
 [project.urls]
