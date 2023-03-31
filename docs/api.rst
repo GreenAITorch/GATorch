@@ -9,7 +9,7 @@ used to access the sample datasets.
 
 .. currentmodule:: chemplot
 
-chemplot.Plotter
+gatorch.Plotter
 ----------------
 
 .. autoclass:: Plotter
