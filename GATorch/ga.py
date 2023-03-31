@@ -17,6 +17,9 @@ class GA:
         self.emission_tracker = None
     
     def attach_model(self, model, loss=None, named_layer=True, profiler='pyjoules', disable_measurements=[]):
+        '''
+        Test comment.
+        '''
         if self.model is not None:
             raise RuntimeError('Already a model attached, use detach_model() before attaching the profiler to a new one.')
 
