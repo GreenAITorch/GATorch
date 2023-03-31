@@ -6,6 +6,6 @@
 /results
 **/runs
 **/dist
+**/build
 *.pth
-*.csv
-*.png
+*.egg-info

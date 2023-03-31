@@ -2,6 +2,7 @@ from pyJoules.device import DeviceFactory
 from pyJoules.device.rapl_device import RaplPackageDomain, RaplDramDomain, RaplDevice
 from pyJoules.device.nvidia_device import NvidiaGPUDomain, NvidiaGPUDevice
 from pyJoules.energy_meter import EnergyMeter
+from pyJoules.exception import NoSuchDeviceError
 from .energyprofiler import EnergyProfiler
 
 class ProfilerPyJoules(EnergyProfiler):
@@ -14,9 +15,16 @@ class ProfilerPyJoules(EnergyProfiler):
         self.meter = EnergyMeter(devices)
 
     def get_available_devices(self):
-        all_available = RaplDevice.available_domains()
+        try:
+            all_available = RaplDevice.available_domains()
+        except NoSuchDeviceError:
+            all_available = []
         all_available = list(map(lambda x: x.get_domain_name(), all_available))
-        all_available += list(map(lambda x: x._repr.replace("_0", ""), NvidiaGPUDevice.available_domains()))
+        try:
+            nvidia_available = NvidiaGPUDevice.available_domains()
+        except NoSuchDeviceError:
+            nvidia_available = []
+        all_available += list(map(lambda x: x._repr.replace("_0", ""), nvidia_available))
         return all_available
 
     def check_available_devices(self, device):
