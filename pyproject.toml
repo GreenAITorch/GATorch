@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "GATorch"
+version = "0.0.1"
+authors = [
+  { name="Rover van der Noort", email="s.r.vandernoort@student.tudelft.nl" },
+  { name="Martijn Smits", email="m.j.p.smits@student.tudelft.nl" },
+  { name="Dajt Mullaj", email="d.mullaj@student.tudelft.nl" },
+  { name="Remy Duijsens", email="r.w.j.p.duijsens@student.tudelft.nl" },
+]
+description = "GATorch is a tool seamlessly integrated with PyTorch that enables ML developers to generate an energy consumption report. By attaching your model, the tool automatically tracks the energy consumption of your model's training and generates graphs and plots to gain in-depth insights into the energy consumption of your model."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/GreenAITorch/GATorch"
+"Bug Tracker" = "https://github.com/GreenAITorch/GATorch/issues"

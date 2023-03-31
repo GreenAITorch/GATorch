@@ -5,6 +5,7 @@
 **/data
 /results
 **/runs
+**/dist
 *.pth
 *.csv
 *.png

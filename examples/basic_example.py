@@ -3,7 +3,7 @@ sys.path.append("../")
 
 import torch
 from torch import nn
-from GA import GA
+from GATorch import GA
 
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 print("Using {} device".format(device))
