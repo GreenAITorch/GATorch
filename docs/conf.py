@@ -22,9 +22,9 @@ project = 'Green AI'
 copyright = '20213 Rover van der Noort, Martijn Smits, Remy Duijsens, Dajt Mullaj'
 author = 'Rover van der Noort, Martijn Smits, Remy Duijsens, Dajt Mullaj'
 
-version = '1.0.0'
+version = '0.0.2'
 # The full version, including alpha/beta/rc tags.
-release = '1.0.0'
+release = '0.0.2'
 
 
 # -- General configuration ---------------------------------------------------
